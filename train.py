@@ -15,7 +15,7 @@ from PIL import Image
 #         btn_update = Button(self.root, text="update", activebackground='#df2121',command=def_train, fg='black', bg='#aa5656', height=1,
 #                             width=12, font=('segoe UI bold', 13, 'italic'))
 #         btn_update.grid(row=0, column=0, padx=30, pady=10)
-class cl_train:
+class Train:
     def def_train():
         img_dir= ('cam_cap')
         path= [os.path.join(img_dir, file) for file in os.listdir(img_dir)]

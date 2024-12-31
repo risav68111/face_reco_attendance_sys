@@ -10,7 +10,7 @@ import numpy as np
 from datetime import datetime
 
 
-class face_reco_attend:
+class Face:
     def __init__(self, root):
         self.root = root
         self.root.geometry("420x200")
@@ -48,40 +48,46 @@ def face_reco():
             cv2.rectangle(im, (x, y), (x+w, y+h), (10, 159, 255), 2)
             Id, conf = recognizer.predict(gray[y:y+h, x:x+w])
             confidence= int(100*(1- conf/300))
+            
+            user= 'risav'
+            user_pass= '1234'
+            database_name='FACE_RECO_SYS_DB'
+            try:
+                conn = mysql.connector.connect(host='localhost', username=user, password=user_pass, database=database_name)
+                my_cursor = conn.cursor()
+                my_cursor.execute("SELECET name fROM user_data WHERE roll_no="+str(Id))
+                nameSQL= my_cursor.fetchone()
+                nameSQL= "+".join(nameSQL)
+                # print(nameSQL)
+                # print(Id)
 
-            conn = mysql.connector.connect(host='localhost', username='root', password='1234', database='try_1')
-            my_cursor = conn.cursor()
-            my_cursor.execute("select name from db_table where rollno="+str(Id))
-            nameSQL= my_cursor.fetchone()
-            nameSQL= "+".join(nameSQL)
-            # print(nameSQL)
-            # print(Id)
+                my_cursor.execute("SELECT dep FROM user_data WHERE roll_no="+str(Id))
+                j= my_cursor.fetchone()
 
-            my_cursor.execute("select dep from db_table where rollno="+str(Id))
-            j= my_cursor.fetchone()
+                if confidence>80:
+                    cv2.putText(im, f"name {nameSQL}", (x, y-5), cv2.FONT_HERSHEY_COMPLEX, 0.8, (0, 255, 0), 2)
 
-            if confidence>80:
-                cv2.putText(im, f"name {nameSQL}", (x, y-5), cv2.FONT_HERSHEY_COMPLEX, 0.8, (0, 255, 0), 2)
+                    with open("attend.csv", "r+", newline="\n") as f:
+                        dataList= f.readlines()
+                        name_list= []
+                        for line in dataList:
+                            entry= line.split((", "))
+                            name_list.append(entry[0])
+                        if((nameSQL not in name_list) and (Id not in name_list) and (j not in name_list)):
+                            now = datetime.now()
+                            d1= now.strftime("%d/ %m/ %Y")
+                            dtStr= now.strftime("%H:%M:%S")
+                            f.writelines(f"\n{nameSQL}, {Id}, {j}, {d1}, {dtStr}")
 
-                with open("attend.csv", "r+", newline="\n") as f:
-                    dataList= f.readlines()
-                    name_list= []
-                    for line in dataList:
-                        entry= line.split((", "))
-                        name_list.append(entry[0])
-                    if((nameSQL not in name_list) and (Id not in name_list) and (j not in name_list)):
-                        now = datetime.now()
-                        d1= now.strftime("%d/ %m/ %Y")
-                        dtStr= now.strftime("%H:%M:%S")
-                        f.writelines(f"\n{nameSQL}, {Id}, {j}, {d1}, {dtStr}")
+                else:
+                    cv2.rectangle(im, (x, y),(x+w, y+h), (0, 0, 255), 2)
+                    cv2.putText(im, "UNKNOWN", (x, y-5), cv2.FONT_HERSHEY_COMPLEX, 0.8, (0, 0, 255), 2)
 
-            else:
-                cv2.rectangle(im, (x, y),(x+w, y+h), (0, 0, 255), 2)
-                cv2.putText(im, "UNKNOWN", (x, y-5), cv2.FONT_HERSHEY_COMPLEX, 0.8, (0, 0, 255), 2)
-
-            # cord [x, y, w, h]
-            conn.commit()
-            conn.close()
+                # cord [x, y, w, h]
+                conn.commit()
+                conn.close()
+            except Exception as es:
+                    messagebox.showerror(f"ERROR", {str(es)})
 
 
         cv2.imshow('Attendance', im)

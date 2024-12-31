@@ -1,0 +1,7 @@
+venv/
+.vscode/
+__pycache__/
+.gitattributes
+.attend.csv
+haarcascade_frontalface_default.xml
+tri.py

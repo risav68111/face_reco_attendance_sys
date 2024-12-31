@@ -1,1 +1,0 @@
-SELECT * FROM face_reco.table_1;
