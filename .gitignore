@@ -5,3 +5,4 @@ __pycache__/
 .attend.csv
 haarcascade_frontalface_default.xml
 tri.py
+cam_cap/
