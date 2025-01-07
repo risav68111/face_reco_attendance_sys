@@ -4,6 +4,7 @@ import tkinter as tk
 from tkinter import font
 from tkinter import messagebox
 import mysql.connector
+from mysql.connector import connection
 import cv2
 from Train import Train
 import os
@@ -192,9 +193,9 @@ class SignUpPage:
                         break
             cap.release()
             cv2.destroyAllWindows()
-            cl_train.def_train()
+            Train.def_train()
             
-        btn_3 = Button(form_F0, text="Enter sample", command=start).grid(row=4, column=2)
+        btn_3 = Button(form_F0, text="Enter sample", command=start).grid(row=4, column=3)
 
         # &&&&&&&&&&&&&&&&&&&&&&   to reset form
         def reset_data():
@@ -220,7 +221,8 @@ class SignUpPage:
                 messagebox.showerror("ERROR!! ", "Fill all the details")
             else:
                 try:
-                    conn = mysql.connector.connect(host='localhost', username=user, password=user_pass, database=database_name)
+                    # conn = mysql.connector.connect(host='localhost', username=user, password=user_pass, database=database_name)
+                    conn = connection.MySQLConnection(user = user, host = 'localhost', database = database_name)
                     my_cursor = conn.cursor()
                     my_cursor.execute('INSERT INTO user_data VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)', (
                         var_name.get(),
@@ -239,8 +241,11 @@ class SignUpPage:
                     conn.commit()
                     conn.close()
                     messagebox.showinfo('Sucess', 'all data added.')
+                except mysql.connector.Error as err:
+                    messagebox.showerror("Database Error", f"Error: {err}")
                 except Exception as es:
-                    messagebox.showerror(f"ERROR", {str(es)})
+                    messagebox.showerror("Unexpected Error", f"Error: {es}")
+
 
         # &&&&&&&&&&&&    button &&&&&&&&&&&
         btn_save = Button(frame_1, text="sign up", command=add_data, activebackground='#df2121', fg='black',

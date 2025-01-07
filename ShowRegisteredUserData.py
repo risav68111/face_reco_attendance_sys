@@ -1,7 +1,8 @@
 from tkinter import *
 from tkinter import ttk,messagebox
 import tkinter as tk
-import mysql.connector
+# import mysql.connector
+from mysql.connector import connection
 
 class ShowRegisteredUserData :
     def run(self):
@@ -17,7 +18,8 @@ class ShowRegisteredUserData :
         user_pass= '1234'
         database_name='FACE_RECO_SYS_DB'
         try:
-            conn = mysql.connector.connect(host='localhost', username=user, password=user_pass, database=database_name)
+            # conn = mysql.connector.connect(host='localhost', username=user, password=user_pass, database=database_name)
+            conn = connection.MySQLConnection(user = user, host = 'localhost', database = database_name)
             my_cursor = conn.cursor()
             query= "SELECT * FROM user_data"
             my_cursor.execute(query)
@@ -25,7 +27,7 @@ class ShowRegisteredUserData :
             conn.commit()
             conn.close()
             print("Data fetched from dataabase.")
-            # messagebox.showinfo('Sucess', 'all data Fetched.')
+            messagebox.showinfo('Sucess', 'all data Fetched.')
             return data
         except Exception as es:
             print(f"error ", es)
@@ -35,9 +37,9 @@ class ShowRegisteredUserData :
         data = self.fetchData()
         processed_data = []
         for row in data:
-            name, roll_no, reg_name, phone_no, email, dep, sem, dob_day, dob_month, dob_year, sex, photo = row
-            dob = f"{dob_day}-{dob_month}-{dob_year}"  # Combine into a single string
-            processed_data.append((name, roll_no, reg_name, phone_no, email, dep, sem, dob, sex))
+            name, roll_no, reg_no, phone, email, dep, sem, day, month, year, sex, photo = row
+            dob = f"{day}-{month}-{year}"  # Combine into a single string
+            processed_data.append((name, roll_no, reg_no, phone, email, dep, sem, dob, sex))
             
         # print(processed_data)
         return processed_data
@@ -86,6 +88,7 @@ class ShowRegisteredUserData :
 
 # root = Tk()
 # run_app= ShowRegisteredUserData()
+# run_app.run()
 
 
 # run_app.dataClean()

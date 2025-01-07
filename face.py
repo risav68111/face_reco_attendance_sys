@@ -3,6 +3,7 @@ from tkinter import ttk
 from tkinter import messagebox
 from PIL import Image, ImageTk
 import mysql.connector
+from mysql.connector import connection
 from time import strftime
 import cv2
 import os
@@ -18,14 +19,14 @@ class Face:
         
         Label(self.root, text="To make attendance using face recognition",  height=1,
                             width=35, font=('segoe UI bold', 13, 'italic')).grid(row=0, column=0, padx=30, pady=10)
-        btn_update = Button(self.root, text="Open Camera", activebackground='#df2121',command=face_reco, fg='black',
+        btn_update = Button(self.root, text="Open Camera", activebackground='#df2121',command=faceReco, fg='black',
                      bg='#aa5656', height=1, width=12, font=('segoe UI bold', 13, 'italic'))
         btn_update.grid(row=1, column=0, padx=30, pady=10)
 
         Label(self.root, text="Press Q to close camera",  height=1,
                             width=35, font=('segoe UI bold', 13, 'italic')).grid(row=3, column=0, padx=30, pady=10)
 
-def face_reco():
+def faceReco():
     recognizer = cv2.face.LBPHFaceRecognizer_create()  
     recognizer.read("Trainner.xml")
     harcascadePath = "haarcascade_frontalface_default.xml"
@@ -53,16 +54,17 @@ def face_reco():
             user_pass= '1234'
             database_name='FACE_RECO_SYS_DB'
             try:
-                conn = mysql.connector.connect(host='localhost', username=user, password=user_pass, database=database_name)
+                # conn = mysql.connector.connect(host='localhost', username=user, password=user_pass, database=database_name)
+                conn = connection.MySQLConnection(user = user, host = 'localhost', database = database_name)
                 my_cursor = conn.cursor()
-                my_cursor.execute("SELECET name fROM user_data WHERE roll_no="+str(Id))
+                my_cursor.execute("SELECT name FROM user_data WHERE roll_no="+str(Id))
                 nameSQL= my_cursor.fetchone()
                 nameSQL= "+".join(nameSQL)
                 # print(nameSQL)
                 # print(Id)
 
                 my_cursor.execute("SELECT dep FROM user_data WHERE roll_no="+str(Id))
-                j= my_cursor.fetchone()
+                j= my_cursor.fetchone()[0]
 
                 if confidence>80:
                     cv2.putText(im, f"name {nameSQL}", (x, y-5), cv2.FONT_HERSHEY_COMPLEX, 0.8, (0, 255, 0), 2)
@@ -99,5 +101,5 @@ def face_reco():
 
 if __name__ == "__main__":
     root = Tk()
-    obj = face_reco_attend(root)
+    obj = Face(root)
     root.mainloop()
