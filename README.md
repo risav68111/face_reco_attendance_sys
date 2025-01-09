@@ -8,11 +8,30 @@ This project is a Face Recognition-based Attendance Management System designed t
 - [Getting Started](#getting-started)
 - [Features](#features)
 - [Installation](#installation)
+- [Screenshots](#screenshot)
 ---
 
 ## About
 
 The **Face Recognition Attendance System** is an automated solution designed to simplify attendance tracking by utilizing facial recognition technology. Users can register by providing their personal details and uploading a photo, which the system uses to train a facial recognition model. Once registered, users can mark their attendance simply by facing the camera, with the system automatically recognizing their face and recording the attendance. The app also allows administrators to view a list of registered users and their attendance records, all of which are stored securely in a MySQL database. Additionally, the system includes features for contacting the administrator and submitting complaints or feedback, making it a comprehensive and user-friendly tool for attendance management.
+
+---
+## Screenshot
+
+![main window](project_screenshot/main.png "main window")
+---
+![Sign Up Page](project_screenshot/signup.png "Sign Up Page")
+---
+![attendance window](project_screenshot/attendance.png "attendance window")
+---
+![attendance Cam](project_screenshot/attendance_cam.png "attendance Cam")
+---
+![attendance Cam](project_screenshot/registered_user.png "attendance Cam")
+---
+![attendance data](project_screenshot/attendance_data.png "attendance data")
+---
+![complaint windoiw](project_screenshot/complaint.png "complaint windoiw")
+---
 
 ---
 
