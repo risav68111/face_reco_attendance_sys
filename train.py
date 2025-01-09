@@ -4,6 +4,7 @@ import numpy as np
 import cv2
 from tkinter import *
 from PIL import Image
+import shutil
 
 # class sign_up_page:
 #     def __init__(self, root):
@@ -18,6 +19,7 @@ from PIL import Image
 class Train:
     def def_train():
         img_dir= ('cam_cap')
+        self.createFolder(img_dir)
         path= [os.path.join(img_dir, file) for file in os.listdir(img_dir)]
         
         faces = []
@@ -39,7 +41,34 @@ class Train:
         clf.train(faces, idx)
         clf.write("Trainner.xml")
         cv2.destroyAllWindows()
+        self.deleteFolder(img_dir)
+
         messagebox.showinfo("RESULT", "trained the image")
+
+    def createFolder(folder_path):
+        try:
+            # Check if the folder already exists
+            if not os.path.exists(folder_path):
+                # Create the folder
+                os.makedirs(folder_path)
+                print(f"Folder '{folder_path}' created successfully!")
+            else:
+                print(f"Folder '{folder_path}' already exists.")
+        except Exception as e:
+            print(f"An error occurred: {e}")
+
+    def deleteFolder(folder_path):
+        try:
+            # Check if the folder exists
+            if os.path.exists(folder_path):
+                # Delete the folder and its contents
+                shutil.rmtree(folder_path)
+                print(f"Folder '{folder_path}' deleted successfully!")
+            else:
+                print(f"Folder '{folder_path}' does not exist.")
+        except Exception as e:
+            print(f"An error occurred: {e}")
+
 
 # if __name__ == "__main__":
 #     root = Tk()

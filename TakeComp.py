@@ -42,7 +42,7 @@ class TakeComp:
         self.entry_dep= Entry(self.root,textvariable=self.var_dep, width= 25, bd= 2).place(x= 190, y= 140)
         
         Label(self.root, text= "enter your email ", font=("segoe UI ", 13), bg= "gray", bd= 3).place(x=14, y= 168)
-        self.entry_email= Entry(self.root,textvariable=self.var_email, width= 25, bd= 2).place(x= 150, y= 170)
+        self.entry_email= Entry(self.root, textvariable=self.var_email, width= 25, bd= 2).place(x= 150, y= 170)
 
         self.text_complaint= Text(self.root, width= 60, bd= 2, bg= "light gray")
         self.text_complaint.place(x= 14, y= 235, height= 200, width=490)
