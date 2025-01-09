@@ -56,7 +56,7 @@ class Main:
                       command=self.close).pack(side='bottom', pady=20)
 
                       
-        show_attendance_btn= Button(show_attendance,text="Ahow Attendance",font=("segoe UI bold", 13, "bold"), bg= "blue", 
+        show_attendance_btn= Button(show_attendance,text="Show Attendance",font=("segoe UI bold", 13, "bold"), bg= "blue", 
         activebackground="red",command= self.ShowAttendance ,height= 2, width= 18, fg= "white").place(x= 680, y= 340)
 
 
@@ -79,6 +79,7 @@ class Main:
     def showUsers(self):
         self.app= ShowRegisteredUserData()
         self.app.run()
+        
     def ShowAttendance(self):
         self.app= ShowAttendance()
         self.app.run()

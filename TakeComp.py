@@ -1,7 +1,8 @@
 from tkinter import *
-from tkinter import Tk
+from tkinter import Tk, ttk,messagebox
 import tkinter as tk
 import mysql
+
 
 class TakeComp:
     def run(self):
@@ -63,20 +64,48 @@ class TakeComp:
         # Extract inputs
         name = self.var_name.get()
         roll_no = self.var_roll.get()
-        dep = self.var_dep.get()
+        department = self.var_dep.get()
         email = self.var_email.get()
         complaint = self.text_complaint.get("1.0", END).strip()
 
-        if not (name and roll_no and dep and email ):
+        if not (name and roll_no and department and email ):
             print("All fields are required!")
             return
 
         print("Complaint Submitted:")
         print(f"Name: {name}")
         print(f"Roll No: {roll_no}")
-        print(f"Department: {dep}")
+        print(f"Department: {department}")
         print(f"Email: {email}")
         print(f"Complaint: {complaint}")
+
+        if not name or not roll_no or not department or not email or not complaint:
+            messagebox.showerror("Error", "All fields are required!")
+        
+        user= 'risav'
+        user_pass= '1234'
+        database_name='FACE_RECO_SYS_DB'
+        try:
+            conn = mysql.connector.connect( host="localhost", user=user, password=user_pass, database=database_name )
+            cursor = conn.cursor()
+
+            query = "INSERT INTO complaints (name, roll_no, department, email, complaint) VALUES (%s, %s, %s, %s, %s)"
+            values = (name, roll_no, department, email, complaint)
+            cursor.execute(query, values)
+            conn.commit()
+
+            # Show success message and clear fields
+            messagebox.showinfo("Success", "Data uploaded successfully!")
+            self.clearInputs()
+
+        except mysql.connector.Error as err:
+            messagebox.showerror("Database Error", f"Error: {err}")
+
+        finally:
+            if conn.is_connected():
+                cursor.close()
+                conn.close()
+
 
     def clearInputs(self):
         # Clear all input fields

@@ -54,8 +54,8 @@ class Face:
                 user_pass= '1234'
                 database_name='FACE_RECO_SYS_DB'
                 try:
-                    # conn = mysql.connector.connect(host='localhost', username=user, password=user_pass, database=database_name)
-                    conn = connection.MySQLConnection(user = user, host = 'localhost', database = database_name)
+                    conn = mysql.connector.connect(host='localhost', username=user, password=user_pass, database=database_name)
+                    # conn = connection.MySQLConnection(user = user, host = 'localhost', database = database_name)
                     my_cursor = conn.cursor()
                     my_cursor.execute("SELECT name FROM user_data WHERE roll_no="+str(Id))
                     nameSQL= my_cursor.fetchone()

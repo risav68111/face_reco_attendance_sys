@@ -221,8 +221,8 @@ class SignUpPage:
                 messagebox.showerror("ERROR!! ", "Fill all the details")
             else:
                 try:
-                    # conn = mysql.connector.connect(host='localhost', username=user, password=user_pass, database=database_name)
-                    conn = connection.MySQLConnection(user = user, host = 'localhost', database = database_name)
+                    conn = mysql.connector.connect(host='localhost', username=user, password=user_pass, database=database_name)
+                    # conn = connection.MySQLConnection(user = user, host = 'localhost', database = database_name)
                     my_cursor = conn.cursor()
                     my_cursor.execute('INSERT INTO user_data VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)', (
                         var_name.get(),

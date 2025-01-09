@@ -3,6 +3,7 @@ from tkinter import ttk
 from tkinter import messagebox
 import csv
 import os
+from datetime import datetime
 
 class ShowAttendance:
     def run(self):
@@ -35,12 +36,14 @@ class ShowAttendance:
 
     def loadCsvFile(self):
         """Load data from the CSV file (atten.csv) and display it in the table."""
-        file_path = os.path.join(os.getcwd(), "attend.csv")  # File path in the same directory
+        current_date = datetime.now().strftime("%Y-%m-%d")
+        file_name = f"attend_{current_date}.csv"
+        file_path = os.path.join(os.getcwd(), file_name)  # File path in the same directory
         # print(file_path)
         if os.path.exists(file_path):
             self.displayCsvData(file_path)
         else:
-            messagebox.showerror("Error", f"File 'atten.csv' not found in the current directory.")
+            messagebox.showerror("Error", f"File '{file_name}' not found in the current directory.")
 
     def displayCsvData(self, file_path):
         """Read CSV file and populate the table."""

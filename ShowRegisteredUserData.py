@@ -1,7 +1,7 @@
 from tkinter import *
 from tkinter import ttk,messagebox
 import tkinter as tk
-# import mysql.connector
+import mysql.connector
 from mysql.connector import connection
 
 class ShowRegisteredUserData :
@@ -18,8 +18,8 @@ class ShowRegisteredUserData :
         user_pass= '1234'
         database_name='FACE_RECO_SYS_DB'
         try:
-            # conn = mysql.connector.connect(host='localhost', username=user, password=user_pass, database=database_name)
-            conn = connection.MySQLConnection(user = user, host = 'localhost', database = database_name)
+            conn = mysql.connector.connect(host='localhost', username=user, password=user_pass, database=database_name)
+            # conn = connection.MySQLConnection(user = user, host = 'localhost', database = database_name)
             my_cursor = conn.cursor()
             query= "SELECT * FROM user_data"
             my_cursor.execute(query)
