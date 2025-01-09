@@ -18,19 +18,19 @@ The **Face Recognition Attendance System** is an automated solution designed to 
 ---
 ## Screenshot
 
-![main window](project_screenshot/main.png "main window")
+![main window](Project_screenshot/main.png "main window")
 ---
-![Sign Up Page](project_screenshot/signup.png "Sign Up Page")
+![Sign Up Page](Project_screenshot/signup.png "Sign Up Page")
 ---
-![attendance window](project_screenshot/attendance.png "attendance window")
+![attendance window](Project_screenshot/attendance.png "attendance window")
 ---
-![attendance Cam](project_screenshot/attendance_cam.png "attendance Cam")
+![attendance Cam](Project_screenshot/attendance_cam.png "attendance Cam")
 ---
-![attendance Cam](project_screenshot/registered_user.png "attendance Cam")
+![attendance Cam](Project_screenshot/registered_user.png "attendance Cam")
 ---
-![attendance data](project_screenshot/attendance_data.png "attendance data")
+![attendance data](Project_screenshot/attendance_data.png "attendance data")
 ---
-![complaint windoiw](project_screenshot/complaint.png "complaint windoiw")
+![complaint windoiw](Project_screenshot/complaint.png "complaint windoiw")
 ---
 
 ---
